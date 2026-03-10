@@ -1,65 +1,78 @@
-import Image from "next/image";
+import { MeetingCreator } from "@/components/meeting-creator";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="relative overflow-hidden">
+      {/* ── Decorative blobs ── */}
+      <div
+        className="blob blob-mauve absolute -right-20 top-10 h-72 w-72 sm:h-96 sm:w-96"
+        aria-hidden="true"
+      />
+      <div
+        className="blob blob-pink absolute -left-16 top-40 h-52 w-52 sm:h-72 sm:w-72"
+        aria-hidden="true"
+      />
+      <div
+        className="blob blob-navy absolute bottom-20 right-10 h-40 w-40"
+        aria-hidden="true"
+      />
+
+      {/* ── Hero section ── */}
+      <div className="relative mx-auto max-w-4xl px-5 pt-16 sm:pt-28">
+        <div className="animate-fade-in-up grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-16">
+          {/* Left: editorial text */}
+          <div className="relative max-w-lg">
+            {/* Organic blob backdrop behind hero text */}
+            <svg
+              viewBox="0 0 500 500"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="pointer-events-none absolute -left-24 -top-16 w-[130%] h-[110%]"
+              aria-hidden="true"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <defs>
+                <radialGradient id="hero-blob" cx="50%" cy="45%" r="50%">
+                  <stop offset="0%" stopColor="#d1aade" stopOpacity="0.22" />
+                  <stop offset="45%" stopColor="#d1aade" stopOpacity="0.12" />
+                  <stop offset="75%" stopColor="#fb6ec2" stopOpacity="0.05" />
+                  <stop offset="100%" stopColor="#fb6ec2" stopOpacity="0" />
+                </radialGradient>
+              </defs>
+              <ellipse cx="260" cy="230" rx="220" ry="200" fill="url(#hero-blob)" />
+            </svg>
+            <p className="animate-fade-in-up animate-delay-1 mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-pink">
+              Real-time meeting analytics
+            </p>
+
+            <h1 className="animate-fade-in-up animate-delay-2 text-5xl font-bold leading-[1.1] tracking-tight text-navy sm:text-6xl lg:text-7xl">
+              How much
+              <br />
+              does your
+              <br />
+              <span className="text-brand-gradient italic">meeting</span>
+              <br />
+              cost?
+            </h1>
+
+            <p className="animate-fade-in-up animate-delay-3 mt-8 max-w-sm text-base leading-relaxed text-navy/50">
+              Track the real-time cost of any meeting based on who&apos;s in the
+              room. Every second has a price tag.
+            </p>
+
+            {/* Decorative element */}
+            <div className="animate-fade-in-up animate-delay-4 mt-8 flex items-center gap-3">
+              <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-navy/20 to-transparent" />
+              <div className="nav-blob flex size-3 bg-mauve" />
+              <div className="nav-blob flex size-2 bg-pink/60" style={{ animationDelay: "2s" }} />
+            </div>
+          </div>
+
+          {/* Right: meeting creator card */}
+          <div className="animate-fade-in-up animate-delay-3 pb-20 lg:pb-28">
+            <MeetingCreator />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }

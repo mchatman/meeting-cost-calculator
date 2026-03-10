@@ -1,26 +1,553 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Custom brand colors */
+  --color-navy: #0f3e80;
+  --color-navy-light: #1a5298;
+  --color-mauve: #d1aade;
+  --color-mauve-light: #e8d5f0;
+  --color-mauve-pale: #f5eef8;
+  --color-pink: #fb6ec2;
+  --color-pink-light: #fca0d8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(0.99 0.005 300);
+  --foreground: oklch(0.22 0.06 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.06 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.06 255);
+  --primary: oklch(0.35 0.12 255);
+  --primary-foreground: oklch(0.98 0.005 300);
+  --secondary: oklch(0.93 0.03 300);
+  --secondary-foreground: oklch(0.22 0.06 255);
+  --muted: oklch(0.95 0.015 300);
+  --muted-foreground: oklch(0.50 0.04 255);
+  --accent: oklch(0.88 0.06 310);
+  --accent-foreground: oklch(0.22 0.06 255);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.90 0.025 300);
+  --input: oklch(0.90 0.025 300);
+  --ring: oklch(0.60 0.12 330);
+  --chart-1: oklch(0.35 0.12 255);
+  --chart-2: oklch(0.72 0.12 310);
+  --chart-3: oklch(0.68 0.20 330);
+  --chart-4: oklch(0.55 0.15 255);
+  --chart-5: oklch(0.85 0.08 300);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.22 0.06 255);
+  --sidebar-primary: oklch(0.35 0.12 255);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.93 0.03 300);
+  --sidebar-accent-foreground: oklch(0.22 0.06 255);
+  --sidebar-border: oklch(0.90 0.025 300);
+  --sidebar-ring: oklch(0.60 0.12 330);
+}
+
+.dark {
+  --background: oklch(0.16 0.03 260);
+  --foreground: oklch(0.93 0.015 300);
+  --card: oklch(0.20 0.04 260);
+  --card-foreground: oklch(0.93 0.015 300);
+  --popover: oklch(0.20 0.04 260);
+  --popover-foreground: oklch(0.93 0.015 300);
+  --primary: oklch(0.72 0.12 310);
+  --primary-foreground: oklch(0.16 0.03 260);
+  --secondary: oklch(0.26 0.04 260);
+  --secondary-foreground: oklch(0.93 0.015 300);
+  --muted: oklch(0.26 0.04 260);
+  --muted-foreground: oklch(0.65 0.05 300);
+  --accent: oklch(0.35 0.08 310);
+  --accent-foreground: oklch(0.93 0.015 300);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.30 0.04 260);
+  --input: oklch(0.30 0.04 260);
+  --ring: oklch(0.60 0.12 330);
+  --chart-1: oklch(0.72 0.12 310);
+  --chart-2: oklch(0.60 0.15 330);
+  --chart-3: oklch(0.50 0.12 255);
+  --chart-4: oklch(0.45 0.10 260);
+  --chart-5: oklch(0.35 0.08 300);
+  --sidebar: oklch(0.20 0.04 260);
+  --sidebar-foreground: oklch(0.93 0.015 300);
+  --sidebar-primary: oklch(0.72 0.12 310);
+  --sidebar-primary-foreground: oklch(0.16 0.03 260);
+  --sidebar-accent: oklch(0.26 0.04 260);
+  --sidebar-accent-foreground: oklch(0.93 0.015 300);
+  --sidebar-border: oklch(0.30 0.04 260);
+  --sidebar-ring: oklch(0.60 0.12 330);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Core utilities ──────────────────────────────────── */
+
+.cost-ticker {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Page background ─────────────────────────────────── */
+
+.bg-brand-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(209,170,222,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 20%, rgba(251,110,194,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #faf6fd 0%, white 50%, white 100%);
+}
+
+/* ── Gradient text ───────────────────────────────────── */
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Branded card ────────────────────────────────────── */
+
+.card-brand {
+  border: 1px solid var(--color-mauve-light);
+  box-shadow:
+    0 1px 3px rgba(209, 170, 222, 0.1),
+    0 4px 16px rgba(15, 62, 128, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-brand:hover {
+  box-shadow:
+    0 2px 8px rgba(209, 170, 222, 0.25),
+    0 12px 40px rgba(15, 62, 128, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Links ───────────────────────────────────────────── */
+
+.link-brand {
+  color: var(--color-navy);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.link-brand:hover {
+  color: var(--color-pink);
+}
+
+/* ── Accent bar ──────────────────────────────────────── */
+
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-navy), var(--color-mauve), var(--color-pink));
+  border-radius: 2px;
+}
+
+/* ── Receipt dashed border ───────────────────────────── */
+
+.receipt-border {
+  border-style: dashed;
+  border-color: var(--color-mauve);
+}
+
+/* ── Vote bar fill ───────────────────────────────────── */
+
+.vote-bar-fill {
+  background: linear-gradient(90deg, var(--color-mauve) 0%, var(--color-pink) 100%);
+}
+
+/* ── Section heading ─────────────────────────────────── */
+
+.section-heading {
+  padding-left: 12px;
+  border-left: 3px solid var(--color-mauve);
+}
+
+/* ═══════════════════════════════════════════════════════
+   ORGANIC BLOB SHAPES — floating decorative elements
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(20px, -15px) scale(1.05) rotate(3deg); }
+  50% { transform: translate(-10px, 10px) scale(0.97) rotate(-2deg); }
+  75% { transform: translate(15px, 5px) scale(1.02) rotate(1deg); }
+}
+
+@keyframes blob-drift-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(-15px, 10px) scale(0.96) rotate(-3deg); }
+  50% { transform: translate(20px, -10px) scale(1.04) rotate(2deg); }
+  75% { transform: translate(-5px, -15px) scale(0.98) rotate(-1deg); }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.blob-mauve {
+  background: rgba(209, 170, 222, 0.35);
+  animation: blob-drift 20s ease-in-out infinite;
+}
+
+.blob-pink {
+  background: rgba(251, 110, 194, 0.15);
+  animation: blob-drift-reverse 25s ease-in-out infinite;
+}
+
+.blob-navy {
+  background: rgba(15, 62, 128, 0.08);
+  animation: blob-drift 30s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ENTRANCE ANIMATIONS — staggered fade-in-up
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.35s; }
+.animate-delay-4 { animation-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════════════
+   PULSING LIVE INDICATOR
+   ═══════════════════════════════════════════════════════ */
+
+.pulse-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-pink);
+  animation: pulse-ring 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(251, 110, 194, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(251, 110, 194, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 110, 194, 0); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   COST TICKER — dramatic counting display
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes cost-glow {
+  0%, 100% { text-shadow: 0 0 30px rgba(251, 110, 194, 0.15); }
+  50% { text-shadow: 0 0 50px rgba(251, 110, 194, 0.3); }
+}
+
+.cost-glow {
+  animation: cost-glow 3s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ORGANIC NAV SHAPE — Samantha Pleet-inspired blob in header
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes nav-blob-morph {
+  0%, 100% { border-radius: 60% 40% 55% 45% / 55% 60% 40% 45%; }
+  25% { border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%; }
+  50% { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; }
+  75% { border-radius: 40% 60% 45% 55% / 50% 40% 60% 50%; }
+}
+
+.nav-blob {
+  animation: nav-blob-morph 12s ease-in-out infinite;
+  will-change: border-radius;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HOVER INTERACTIONS — scale and glow
+   ═══════════════════════════════════════════════════════ */
+
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(15, 62, 128, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CIRCULAR PROGRESS RING — for timer page
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   VOTE BUTTON HOVER FILL
+   ═══════════════════════════════════════════════════════ */
+
+.vote-btn {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.vote-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-mauve-pale), rgba(251, 110, 194, 0.1));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.vote-btn:hover::before {
+  transform: scaleX(1);
+}
+
+.vote-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MEETING SCENE — silhouette figure animations
+   ═══════════════════════════════════════════════════════ */
+
+/* Gentle sway — figure rocks side to side */
+@keyframes scene-sway {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(1.5deg); }
+  70% { transform: rotate(-1.5deg); }
+}
+
+@keyframes scene-sway-reverse {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-1.8deg); }
+  70% { transform: rotate(1.2deg); }
+}
+
+/* Gentle vertical bob — figure shifts up/down slightly */
+@keyframes scene-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.scene-figure-sway {
+  animation: scene-sway 6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.scene-figure-sway-reverse {
+  animation: scene-sway-reverse 7s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.scene-figure-bob {
+  animation: scene-bob 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+/* Thought bubble float */
+@keyframes scene-thought-float {
+  0%, 100% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(-5px); opacity: 0.15; }
+}
+
+.scene-thought-1 {
+  animation: scene-thought-float 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.scene-thought-2 {
+  animation: scene-thought-float 4s ease-in-out 0.6s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.scene-thought-3 {
+  animation: scene-thought-float 4s ease-in-out 1.2s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Speech bubble pulse */
+@keyframes scene-speech-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.2); opacity: 0.08; }
+}
+
+.scene-speech-bubble {
+  animation: scene-speech-pulse 3.5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.scene-speech-bubble-sm {
+  animation: scene-speech-pulse 3.5s ease-in-out 0.4s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Steam rising */
+@keyframes scene-steam-rise {
+  0% { transform: translateY(0) scaleY(1); opacity: 0.2; }
+  50% { transform: translateY(-6px) scaleY(1.1); opacity: 0.08; }
+  100% { transform: translateY(-12px) scaleY(0.8); opacity: 0; }
+}
+
+.scene-steam-1 {
+  animation: scene-steam-rise 3s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.scene-steam-2 {
+  animation: scene-steam-rise 3s ease-out 1s infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+/* Drawing line growing on whiteboard */
+@keyframes scene-draw {
+  0%, 10% { stroke-dashoffset: 80; }
+  60% { stroke-dashoffset: 0; }
+  80%, 100% { stroke-dashoffset: 0; opacity: 0.15; }
+}
+
+.scene-draw-line {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: scene-draw 5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MEETING SCENE — organic blob backdrops (large, visible)
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes scene-blob-morph {
+  0%, 100% {
+    border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%;
+    transform: scale(1.03) rotate(2deg);
+  }
+  50% {
+    border-radius: 60% 40% 50% 50% / 45% 55% 50% 50%;
+    transform: scale(0.98) rotate(-1deg);
+  }
+  75% {
+    border-radius: 45% 55% 55% 45% / 55% 45% 60% 40%;
+    transform: scale(1.02) rotate(1deg);
+  }
+}
+
+@keyframes scene-blob-morph-alt {
+  0%, 100% {
+    border-radius: 48% 52% 55% 45% / 52% 48% 45% 55%;
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    border-radius: 55% 45% 42% 58% / 45% 55% 52% 48%;
+    transform: scale(1.05) rotate(-2deg);
+  }
+  66% {
+    border-radius: 42% 58% 50% 50% / 58% 42% 48% 52%;
+    transform: scale(0.97) rotate(2deg);
+  }
+}
+
+.scene-blob-morph {
+  background: rgba(209, 170, 222, 0.3);
+  border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+  filter: blur(50px);
+  animation: scene-blob-morph 15s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+
+.scene-blob-morph-alt {
+  background: rgba(251, 110, 194, 0.2);
+  border-radius: 48% 52% 55% 45% / 52% 48% 45% 55%;
+  filter: blur(45px);
+  animation: scene-blob-morph-alt 18s ease-in-out infinite;
+  will-change: border-radius, transform;
 }
