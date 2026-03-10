@@ -24,11 +24,13 @@ export default function ReceiptPage() {
   const [meeting, setMeeting] = useState<Meeting | null | undefined>(undefined);
   const [voted, setVoted] = useState(false);
   const [results, setResults] = useState<VoteResultsType>({
-    worth_it: 0,
-    could_be_async: 0,
-    too_many_people: 0,
-    too_long: 0,
     total: 0,
+    results: {
+      worth_it: 0,
+      could_be_async: 0,
+      too_many_people: 0,
+      too_long: 0,
+    },
   });
 
   useEffect(() => {

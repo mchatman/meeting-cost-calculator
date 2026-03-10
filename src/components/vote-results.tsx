@@ -23,7 +23,7 @@ export function VoteResults({ results }: VoteResultsProps) {
       </p>
       <div className="space-y-3">
         {VOTE_OPTIONS.map((option) => {
-          const count = results[option];
+          const count = results.results[option];
           const percentage =
             results.total > 0 ? (count / results.total) * 100 : 0;
           return (

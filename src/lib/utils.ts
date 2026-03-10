@@ -7,5 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateSlug(): string {
-  return nanoid(8)
+  return nanoid(8);
 }

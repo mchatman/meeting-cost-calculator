@@ -4,11 +4,19 @@ export function calculateCostPerSecond(attendees: Attendee[]): number {
   return attendees.reduce((sum, a) => sum + a.hourlyRate / 3600, 0);
 }
 
+// Alias used by backend/API layer
+export const getCostPerSecond = calculateCostPerSecond;
+
 export function calculateTotalCost(
   attendees: Attendee[],
-  elapsedSeconds: number
+  startedAtOrSeconds: number | Date,
+  endedAt?: Date
 ): number {
-  return calculateCostPerSecond(attendees) * elapsedSeconds;
+  if (startedAtOrSeconds instanceof Date && endedAt) {
+    const seconds = (endedAt.getTime() - startedAtOrSeconds.getTime()) / 1000;
+    return Math.round(calculateCostPerSecond(attendees) * seconds * 100) / 100;
+  }
+  return calculateCostPerSecond(attendees) * (startedAtOrSeconds as number);
 }
 
 export function calculateElapsedSeconds(
