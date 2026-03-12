@@ -70,3 +70,68 @@ export const VOTE_LABELS: Record<VoteOption, string> = {
   too_many_people: "Too many people",
   too_long: "Too long",
 };
+
+// ── Calendar & Dashboard Types ──────────────────────────
+
+export interface CalendarAttendee {
+  email: string;
+  name?: string;
+  status?: string;
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  startTime: string;
+  endTime: string;
+  attendees: CalendarAttendee[];
+  attendeeCount: number;
+  meetLink?: string;
+}
+
+export interface ZoomMeeting {
+  id: string;
+  title: string;
+  startTime: string;
+  duration: number; // minutes
+  joinUrl?: string;
+}
+
+export interface DashboardMeeting {
+  id: string;
+  title: string;
+  startTime: Date;
+  endTime: Date;
+  attendeeCount: number;
+  attendeeNames: string[];
+  source: "google" | "zoom";
+  meetLink?: string;
+  hourlyRate: number;
+  costPerSecond: number;
+  status: "upcoming" | "in-progress" | "ended";
+  accruedCost: number;
+}
+
+export interface ConnectionStatus {
+  google: boolean;
+  zoom: boolean;
+  loading: boolean;
+}
+
+export interface DailySummary {
+  date: string;
+  meetings: DashboardMeeting[];
+  totalCost: number;
+  totalMinutes: number;
+  meetingCount: number;
+}
+
+export interface WeeklySummary {
+  weekStart: string;
+  weekEnd: string;
+  dailySummaries: DailySummary[];
+  totalCost: number;
+  totalMinutes: number;
+  meetingCount: number;
+  averageCostPerMeeting: number;
+}

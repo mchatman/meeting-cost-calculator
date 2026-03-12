@@ -20,9 +20,14 @@ export function Header() {
           <span className="sm:hidden">MCC</span>
         </Link>
 
-        <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-navy/50">
-          Time is money
-        </p>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard"
+            className="link-brand text-[11px] font-semibold uppercase tracking-[0.15em] text-navy/50 hover:text-pink"
+          >
+            Dashboard
+          </Link>
+        </div>
       </div>
     </header>
   );

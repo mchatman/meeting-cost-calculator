@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Meeting, VoteOption, VoteResults as VoteResultsType } from "@/lib/types";
-import { getMeeting, castVote, getVotes, hasVoted } from "@/lib/mock-api";
+import { Meeting, MeetingResponse, VoteOption, VoteResults as VoteResultsType } from "@/lib/types";
+import { fetchMeeting, castVote, fetchVoteResults } from "@/lib/api-client";
 import { MeetingReceipt } from "@/components/meeting-receipt";
 import { VoteButtons } from "@/components/vote-buttons";
 import { VoteResults } from "@/components/vote-results";
@@ -17,6 +17,26 @@ function getVoterId(): string {
     localStorage.setItem("voter-id", id);
   }
   return id;
+}
+
+function toMeeting(res: MeetingResponse): Meeting {
+  const startMs = new Date(res.startedAt).getTime();
+  const endMs = res.endedAt ? new Date(res.endedAt).getTime() : null;
+  return {
+    id: res.slug,
+    slug: res.slug,
+    title: res.title,
+    status: res.status,
+    started_at: res.startedAt,
+    ended_at: res.endedAt ?? null,
+    attendees: res.attendees,
+    startedAt: startMs,
+    endedAt: endMs,
+    total_cost: res.totalCost,
+    totalCost: res.totalCost,
+    created_ip: null,
+    created_at: res.startedAt,
+  };
 }
 
 export default function ReceiptPage() {
@@ -34,21 +54,26 @@ export default function ReceiptPage() {
   });
 
   useEffect(() => {
-    const m = getMeeting(params.slug);
-    setMeeting(m);
-    if (m) {
-      setResults(getVotes(params.slug));
-      const voterId = getVoterId();
-      setVoted(hasVoted(params.slug, voterId));
+    async function load() {
+      const res = await fetchMeeting(params.slug);
+      if (!res) {
+        setMeeting(null);
+        return;
+      }
+      setMeeting(toMeeting(res));
+      const voteResults = await fetchVoteResults(params.slug);
+      setResults(voteResults);
     }
+    load();
   }, [params.slug]);
 
-  function handleVote(option: VoteOption) {
+  async function handleVote(option: VoteOption) {
     const voterId = getVoterId();
-    const success = castVote(params.slug, option, voterId);
+    const success = await castVote(params.slug, option, voterId);
     if (success) {
       setVoted(true);
-      setResults(getVotes(params.slug));
+      const voteResults = await fetchVoteResults(params.slug);
+      setResults(voteResults);
     }
   }
 

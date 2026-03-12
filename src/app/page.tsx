@@ -1,4 +1,5 @@
 import { MeetingCreator } from "@/components/meeting-creator";
+import { HomeCta } from "@/components/home-cta";
 
 export default function Home() {
   return (
@@ -72,6 +73,9 @@ export default function Home() {
             <MeetingCreator />
           </div>
         </div>
+
+        {/* Calendar connection CTA */}
+        <HomeCta />
       </div>
     </div>
   );

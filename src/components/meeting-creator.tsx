@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import { Attendee } from "@/lib/types";
 import { SALARY_PRESETS } from "@/lib/salary-presets";
 import { formatCost } from "@/lib/cost-calculator";
-import { createMeeting } from "@/lib/mock-api";
+import { createMeeting } from "@/lib/api-client";
 import { AttendeeInput } from "@/components/attendee-input";
 import {
   Card,
@@ -51,15 +51,22 @@ export function MeetingCreator() {
     setAttendees((prev) => [...prev, createDefaultAttendee()]);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim() || attendees.length === 0) return;
+    if (!title.trim() || attendees.length === 0 || submitting) return;
 
     const validAttendees = attendees.filter((a) => a.hourlyRate > 0);
     if (validAttendees.length === 0) return;
 
-    const meeting = createMeeting(title.trim(), validAttendees);
-    router.push(`/meeting/${meeting.slug}`);
+    setSubmitting(true);
+    try {
+      const meeting = await createMeeting(title.trim(), validAttendees);
+      router.push(`/meeting/${meeting.slug}`);
+    } catch {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -143,7 +150,7 @@ export function MeetingCreator() {
             type="submit"
             className="hover-lift w-full bg-navy text-white shadow-md hover:bg-navy-light"
             size="lg"
-            disabled={!title.trim() || attendees.every((a) => a.hourlyRate <= 0)}
+            disabled={submitting || !title.trim() || attendees.every((a) => a.hourlyRate <= 0)}
           >
             Start Meeting
           </Button>
